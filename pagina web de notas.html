@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página de Notas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4ba349;  
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #008602;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .notes {
+            margin-top: 20px;
+        }
+
+        .note {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .note button {
+            background-color: red;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mis Notas</h1>
+    </header>
+
+    <div class="container">
+        <textarea id="notaInput" placeholder="Escribe tu nota aquí..."></textarea><br>
+        <button onclick="guardarNota()">Guardar Nota</button>
+
+        <div class="notes" id="notasContainer"></div>
+    </div>
+
+    <script>
+        function guardarNota() {
+            const notaInput = document.getElementById('notaInput');
+            const notaTexto = notaInput.value.trim();
+
+            if (notaTexto !== '') {
+                const nota = document.createElement('div');
+                nota.classList.add('note');
+                nota.innerHTML = `
+                    <p>${notaTexto}</p>
+                    <button onclick="eliminarNota(this)">Eliminar</button>
+                `;
+                
+                const notasContainer = document.getElementById('notasContainer');
+                notasContainer.appendChild(nota);
+
+                // Limpiar el input después de guardar la nota
+                notaInput.value = '';
+            } else {
+                alert('Por favor, escribe una nota antes de guardar.');
+            }
+        }
+
+        function eliminarNota(button) {
+            const nota = button.parentElement;
+            nota.remove();
+        }
+    </script>
+
+</body>
+</html>
